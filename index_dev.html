@@ -34,7 +34,7 @@
 			<fieldset id="layer_selector">
 				<legend>Choose layers:</legend>
 				<label for="cbox-1">Base</label>
-				<input type="checkbox" id="cbox-1" name="cbox" disabled="disabled" checked="checked" value="Basic">
+				<input type="checkbox" id="cbox-1" name="cbox" checked="checked" value="Basic" disabled="disabled">
 				<label for="cbox-2">Green</label>
 				<input type="checkbox" id="cbox-2" name="cbox" checked="checked" value="Green">
 				<label for="cbox-3">Purple</label>
@@ -68,26 +68,29 @@
 						borderDashes: [5,5]
 					};
 				};
+				var changeChosenDarkNodeLabel = function(values, id, selected, hovering) {
+					values.color = 'white';
+				};
 			
 				var visData = [
 					{
 						id: 'Basic',
 						nodesDataset: nodesBasic,
-						nodeTemplate: {id: 0, x : 0, y : 0, label: '-', color: 'rgba(0,0,255,0.20)', widthConstraint: { minimum: 200 }},
+						nodeTemplate: {id: 0, x : 0, y : 0, label: '-', color: 'rgba(0,0,255,0.20)', widthConstraint: { minimum: 200 }, font: { size: 72, bold: true}},
 						edgesDataset: edgesBasic,
 						edgeTemplate: {from: 0, to: 0, label: ''}
 					},
 					{
 						id: 'Green',
 						nodesDataset: nodesGreen,
-						nodeTemplate: {id: 0, x : 0, y : 0, label: '-', color: { background: 'rgba(0,255,0,0.20)', border: 'rgba(0,255,0,0.80)' }, widthConstraint: { minimum: 70 }},
+						nodeTemplate: {id: 0, x : 0, y : 0, label: '-', color: { background: 'rgba(0,255,0,0.20)', border: 'rgba(0,255,0,0.80)' }, widthConstraint: { minimum: 70 }, font: { bold: true}},
 						edgesDataset: edgesGreen,
 						edgeTemplate: {from: 0, to: 0, label: ''}
 					},
 					{
 						id: 'Purple',
 						nodesDataset: nodesPurple,
-						nodeTemplate: {id: 0, x : 0, y : 0, label: '-', color: 'rgba(80,0,130,1.0)', widthConstraint: { minimum: 70 }, font: {color: 'white'}},
+						nodeTemplate: {id: 0, x : 0, y : 0, label: '-', color: { background: 'rgba(80,0,130,0.2)', border: 'rgba(80,0,130,0.8)' }, widthConstraint: { minimum: 70 }, font: { bold: true}, chosen: { label: changeChosenDarkNodeLabel }},
 						edgesDataset: edgesPurple,
 						edgeTemplate: {from: 0, to: 0, label: ''}
 					}

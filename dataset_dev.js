@@ -16,7 +16,7 @@ var nodesBasic = [
 	{id: 10, x : 1000, y : 363.604},
 	{id: 11, x : 363.604, y : 1000},
 	{id: 12, x : 1000, y : 1636.396},
-	{id: 13, x : 1636.396, y : 1000},
+	{id: 13, x : 1636.396, y : 1000}
 ];
 
 var nodesGreen = [
@@ -114,7 +114,7 @@ var nodesPurple = [
 	{id: 99, x : 1263.6, y : 1263.6},
 	{id: 100, x : 627.21, y : 1372.79},
 	{id: 101, x : 1372.79, y : 627.21},
-	{id: 102, x : 1372.79, y : 1372.79},
+	{id: 102, x : 1372.79, y : 1372.79}
 ];
 
 var edgesBasic = [
@@ -218,7 +218,7 @@ var edgesBasic = [
 	{from: 11, to: 13},
 
 	// 12
-	{from: 12, to: 13},
+	{from: 12, to: 13}
 
 	// 13
 	// none
@@ -453,12 +453,354 @@ var edgesGreen = [
 	// 49
 	{from: 49, to: 1},
 	{from: 49, to: 50},
-	{from: 49, to: 8},
+	{from: 49, to: 8}
 	
 	// 50
 	// none
 ];
 
 var edgesPurple = [
+	// 51
+	{from: 51, to: 5},
+	{from: 51, to: 6},
+	{from: 51, to: 3},
+	{from: 51, to: 10},
+	{from: 51, to: 12},
+	{from: 51, to: 9},
+	{from: 51, to: 2},
+	{from: 51, to: 1},
+	{from: 51, to: 4},
 	
+	// 52
+	{from: 52, to: 2},
+	{from: 52, to: 7},
+	{from: 52, to: 3},
+	{from: 52, to: 9},
+	{from: 52, to: 1},
+	{from: 52, to: 6},
+	{from: 52, to: 8},
+	
+	// 53
+	{from: 53, to: 3},
+	{from: 53, to: 9},
+	{from: 53, to: 2},
+	{from: 53, to: 11},
+	
+	// 54
+	{from: 54, to: 3},
+	{from: 54, to: 9},
+	{from: 54, to: 6},
+	{from: 54, to: 4},
+	
+	// 55
+	{from: 55, to: 2},
+	{from: 55, to: 11},
+	{from: 55, to: 6},
+	{from: 55, to: 4},
+	
+	// 56
+	{from: 56, to: 3},
+	{from: 56, to: 10},
+	{from: 56, to: 6},
+	{from: 56, to: 4},
+	
+	// 57
+	{from: 57, to: 3},
+	{from: 57, to: 2},
+	{from: 57, to: 6},
+	{from: 57, to: 4},
+	
+	// 58
+	{from: 58, to: 3},
+	{from: 58, to: 2},
+	{from: 58, to: 6},
+	{from: 58, to: 5},
+	
+	// 59
+	{from: 59, to: 2},
+	{from: 59, to: 11},
+	{from: 59, to: 6},
+	{from: 59, to: 5},
+	
+	// 60
+	{from: 60, to: 3},
+	{from: 60, to: 10},
+	{from: 60, to: 6},
+	{from: 60, to: 5},
+	
+	// 61
+	{from: 61, to: 2},
+	{from: 61, to: 7},
+	{from: 61, to: 6},
+	{from: 61, to: 5},
+	
+	// 62
+	{from: 62, to: 2},
+	{from: 62, to: 7},
+	{from: 62, to: 3},
+	{from: 62, to: 10},
+	
+	// 63
+	{from: 63, to: 3},
+	{from: 63, to: 10},
+	{from: 63, to: 2},
+	{from: 63, to: 11},
+	
+	// 64
+	{from: 64, to: 3},
+	{from: 64, to: 11},
+	{from: 64, to: 13},
+	{from: 64, to: 5},
+	{from: 64, to: 1},
+	{from: 64, to: 2},
+	{from: 64, to: 7},
+	{from: 64, to: 6},
+	{from: 64, to: 4},
+	
+	// 65
+	{from: 65, to: 4},
+	{from: 65, to: 12},
+	{from: 65, to: 10},
+	{from: 65, to: 2},
+	{from: 65, to: 1},
+	{from: 65, to: 7},
+	{from: 65, to: 5},
+	{from: 65, to: 8},
+	{from: 65, to: 3},
+	
+	// 66
+	{from: 66, to: 3},
+	{from: 66, to: 11},
+	{from: 66, to: 13},
+	{from: 66, to: 5},
+	{from: 66, to: 1},
+	{from: 66, to: 2},
+	{from: 66, to: 8},
+	{from: 66, to: 4},
+	{from: 66, to: 9},
+	
+	// 67
+	{from: 67, to: 3},
+	{from: 67, to: 9},
+	{from: 67, to: 2},
+	{from: 67, to: 8},
+	
+	// 68
+	{from: 68, to: 6},
+	{from: 68, to: 4},
+	{from: 68, to: 5},
+	{from: 68, to: 7},
+	
+	// 69
+	{from: 69, to: 3},
+	{from: 69, to: 8},
+	{from: 69, to: 4},
+	{from: 69, to: 9},
+	
+	// 70
+	{from: 70, to: 3},
+	{from: 70, to: 12},
+	{from: 70, to: 5},
+	{from: 70, to: 7},
+	
+	// 71
+	{from: 71, to: 3},
+	{from: 71, to: 9},
+	{from: 71, to: 5},
+	{from: 71, to: 10},
+	
+	// 72
+	{from: 72, to: 3},
+	{from: 72, to: 8},
+	{from: 72, to: 5},
+	{from: 72, to: 12},
+	
+	// 73
+	{from: 73, to: 5},
+	{from: 73, to: 7},
+	{from: 73, to: 4},
+	{from: 73, to: 11},
+	
+	// 74
+	{from: 74, to: 2},
+	{from: 74, to: 13},
+	{from: 74, to: 3},
+	{from: 74, to: 9},
+	
+	// 75
+	{from: 75, to: 3},
+	{from: 75, to: 8},
+	{from: 75, to: 4},
+	{from: 75, to: 13},
+	
+	// 76
+	{from: 76, to: 3},
+	{from: 76, to: 4},
+	{from: 76, to: 5},
+	{from: 76, to: 7},
+	
+	// 77
+	{from: 77, to: 3},
+	{from: 77, to: 9},
+	{from: 77, to: 2},
+	{from: 77, to: 5},
+	
+	// 78
+	{from: 78, to: 3},
+	{from: 78, to: 8},
+	{from: 78, to: 4},
+	{from: 78, to: 5},
+	
+	// 79
+	{from: 79, to: 2},
+	{from: 79, to: 7},
+	{from: 79, to: 3},
+	{from: 79, to: 4},
+	
+	// 80
+	{from: 80, to: 4},
+	{from: 80, to: 9},
+	{from: 80, to: 2},
+	{from: 80, to: 5},
+	
+	// 81
+	{from: 81, to: 2},
+	{from: 81, to: 8},
+	{from: 81, to: 4},
+	{from: 81, to: 5},
+	
+	// 82
+	{from: 82, to: 2},
+	{from: 82, to: 7},
+	{from: 82, to: 3},
+	{from: 82, to: 12},
+	
+	// 83
+	{from: 83, to: 4},
+	{from: 83, to: 9},
+	{from: 83, to: 5},
+	{from: 83, to: 10},
+	
+	// 84
+	{from: 84, to: 2},
+	{from: 84, to: 8},
+	{from: 84, to: 5},
+	{from: 84, to: 12},
+	
+	// 85
+	{from: 85, to: 2},
+	{from: 85, to: 7},
+	{from: 85, to: 4},
+	{from: 85, to: 11},
+	
+	// 86
+	{from: 86, to: 2},
+	{from: 86, to: 13},
+	{from: 86, to: 4},
+	{from: 86, to: 9},
+	
+	// 87
+	{from: 87, to: 2},
+	{from: 87, to: 8},
+	{from: 87, to: 4},
+	{from: 87, to: 13},
+	
+	// 88
+	{from: 88, to: 2},
+	{from: 88, to: 7},
+	{from: 88, to: 3},
+	{from: 88, to: 8},
+	
+	// 89
+	{from: 89, to: 4},
+	{from: 89, to: 9},
+	{from: 89, to: 5},
+	{from: 89, to: 6},
+	
+	// 90
+	{from: 90, to: 2},
+	{from: 90, to: 8},
+	{from: 90, to: 5},
+	{from: 90, to: 7},
+	
+	// 91
+	{from: 91, to: 3},
+	{from: 91, to: 12},
+	{from: 91, to: 4},
+	{from: 91, to: 6},
+	
+	// 92
+	{from: 92, to: 2},
+	{from: 92, to: 8},
+	{from: 92, to: 5},
+	{from: 92, to: 10},
+	
+	// 93
+	{from: 93, to: 4},
+	{from: 93, to: 9},
+	{from: 93, to: 5},
+	{from: 93, to: 12},
+	
+	// 94
+	{from: 94, to: 3},
+	{from: 94, to: 8},
+	{from: 94, to: 4},
+	{from: 94, to: 11},
+	
+	// 95
+	{from: 95, to: 2},
+	{from: 95, to: 13},
+	{from: 95, to: 5},
+	{from: 95, to: 6},
+	
+	// 96
+	{from: 96, to: 4},
+	{from: 96, to: 13},
+	{from: 96, to: 5},
+	{from: 96, to: 7},
+	
+	// 97
+	{from: 97, to: 6},
+	{from: 97, to: 4},
+	{from: 97, to: 3},
+	{from: 97, to: 8},
+	{from: 97, to: 1},
+	{from: 97, to: 7},
+	{from: 97, to: 9},
+	
+	// 98
+	{from: 98, to: 6},
+	{from: 98, to: 5},
+	{from: 98, to: 2},
+	{from: 98, to: 8},
+	{from: 98, to: 1},
+	{from: 98, to: 7},
+	{from: 98, to: 9},
+	
+	// 99
+	{from: 99, to: 4},
+	{from: 99, to: 9},
+	{from: 99, to: 5},
+	{from: 99, to: 7},
+	{from: 99, to: 1},
+	{from: 99, to: 6},
+	{from: 99, to: 8},
+	
+	// 100
+	{from: 100, to: 3},
+	{from: 100, to: 12},
+	{from: 100, to: 4},
+	{from: 100, to: 11},
+	
+	// 101
+	{from: 101, to: 2},
+	{from: 101, to: 13},
+	{from: 101, to: 5},
+	{from: 101, to: 10},
+	
+	// 102
+	{from: 102, to: 4},
+	{from: 102, to: 13},
+	{from: 102, to: 5},
+	{from: 102, to: 12}
 ];
