@@ -1,12 +1,13 @@
 Model = (function() {
 	var _config = {
 		modelScale: 1.0,
+		modelData: {},
 		
 		visContainer: document.body,
-		visData: {},
 		visOptions: {}
 	};
 	
+	var _preparedData = [];
 	var _visNetwork = null;
 	
 	function Init(userConfig)
@@ -22,16 +23,26 @@ Model = (function() {
 		PrepareData();
 	}
 	
+	function GetScale()
+	{
+		return _config.modelScale;
+	}
+	
+	function SetScale(value)
+	{
+		_config.modelScale = value;
+		PrepareData();
+	}
+	
 	function PrepareData()
 	{
-		var data = _config.visData;
-		_config.visData = [];
+		_preparedData = [];
 		
-		for(var i = 0; i < data.length; i++)
+		for(var i = 0; i < _config.modelData.length; i++)
 		{
 			// Prepare nodes
-			var srcNodes = data[i].nodesDataset;
-			var srcNodeTemplate = data[i].nodeTemplate;
+			var srcNodes = _config.modelData[i].nodesDataset;
+			var srcNodeTemplate = _config.modelData[i].nodeTemplate;
 			var nodes = [];
 			for(var j = 0; j < srcNodes.length; j++)
 			{
@@ -44,8 +55,8 @@ Model = (function() {
 			}
 			
 			// Prepare edges
-			var srcEdges = data[i].edgesDataset;
-			var srcEdgeTemplate = data[i].edgeTemplate;
+			var srcEdges = _config.modelData[i].edgesDataset;
+			var srcEdgeTemplate = _config.modelData[i].edgeTemplate;
 			var edges = [];
 			for(var j = 0; j < srcEdges.length; j++)
 			{
@@ -54,7 +65,7 @@ Model = (function() {
 				edges[j] = edge;
 			}
 			
-			_config.visData[data[i].id] = {
+			_preparedData[_config.modelData[i].id] = {
 				nodes: nodes,
 				edges: edges
 			};
@@ -75,8 +86,8 @@ Model = (function() {
 		{
 			var id = viewIds[i];
 			
-			nodes = nodes.concat(_config.visData[id].nodes);
-			edges = edges.concat(_config.visData[id].edges);
+			nodes = nodes.concat(_preparedData[id].nodes);
+			edges = edges.concat(_preparedData[id].edges);
 		}
 		
 		var visData = {
@@ -88,6 +99,8 @@ Model = (function() {
 		_visNetwork.on('click', VisOnClick);
 		// _visNetwork.on('selectNode', VisOnSelectNode);
 		// _visNetwork.on('selectEdge', VisOnSelectEdge);
+		_visNetwork.on('beforeDrawing', VisOnBeforeDrawing);
+		_visNetwork.on('afterDrawing', VisOnAfterDrawing);
 	}
 	
 	function VisOnClick(data)
@@ -105,6 +118,40 @@ Model = (function() {
 	{
 		//console.log('OnSelectEdge');
 		//VisCustomSelection(this, data);
+	}
+	
+	function VisOnBeforeDrawing(context)
+	{
+		// Draw Main circle
+		if(typeof this.getBoundingBox('1') !== 'undefined' && typeof this.getBoundingBox('2') !== 'undefined')
+		{
+			var center = GetBoundingBoxCenter(this.getBoundingBox('1'));
+			var top = GetBoundingBoxCenter(this.getBoundingBox('2'));
+
+			var radius = center.y - top.y;
+
+			context.beginPath();
+			context.arc(center.x, center.y, radius, 0, 2 * Math.PI);
+			context.stroke();
+		}
+		
+		// Draw Yellow circle
+		if(typeof this.getBoundingBox('1') !== 'undefined' && typeof this.getBoundingBox('43') !== 'undefined')
+		{
+			var center = GetBoundingBoxCenter(this.getBoundingBox('1'));
+			var top = GetBoundingBoxCenter(this.getBoundingBox('43'));
+
+			var radius = center.y - top.y;
+
+			context.beginPath();
+			context.arc(center.x, center.y, radius, 0, 2 * Math.PI);
+			context.stroke();
+		}
+	}
+	
+	function VisOnAfterDrawing(context)
+	{
+		
 	}
 	
 	function VisCustomSelection(network, data)
@@ -130,6 +177,14 @@ Model = (function() {
 		for(var i = 0; i < connectedNodes.length; i++)
 		{
 		}*/
+	}
+	
+	function GetBoundingBoxCenter(bb)
+	{
+		return {
+			x: bb.left + (bb.right - bb.left) / 2.0,
+			y: bb.top + (bb.bottom - bb.top) / 2.0
+		};
 	}
 	
 	function IsObj(obj)
@@ -175,6 +230,8 @@ Model = (function() {
 	
 	return {
 		Init: Init,
+		GetScale: GetScale,
+		SetScale: SetScale,
 		Draw: Draw
 	};
 })();

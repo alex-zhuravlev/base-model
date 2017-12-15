@@ -16,7 +16,11 @@
 		<script type="text/javascript" src="model.js"></script>
 		
 		<style type="text/css">
-			.network_window {
+			.network-window {
+				float: left;
+			}
+			
+			.control-panel {
 				float: left;
 			}
 
@@ -28,9 +32,14 @@
 		</style>
 	</head>
 	<body onload="onBodyLoaded()">
-		<div class="network_window">
+		<div class="network-window">
 			<div id="vis_network"></div>
-			
+		</div>
+		
+		<div class="control-panel">
+			<div id="scale_slider"></div>
+			<div id="scale_slider_label"></div>
+
 			<fieldset id="layer_selector">
 				<legend>Choose layers:</legend>
 				<label for="cbox-1">Base</label>
@@ -40,8 +49,8 @@
 				<label for="cbox-3">Purple</label>
 				<input type="checkbox" name="cbox" id="cbox-3" checked="checked" value="Purple">
 			</fieldset>
-			
-			<button id="btn-1">Reset</button>
+
+			<button id="btn-1">Reset</button>	
 		</div>
 
 		<script type="text/javascript">
@@ -72,7 +81,7 @@
 					values.color = 'white';
 				};
 			
-				var visData = [
+				var modelData = [
 					{
 						id: 'Basic',
 						nodesDataset: nodesBasic,
@@ -123,8 +132,9 @@
 
 				var modelConfig = {
 					modelScale: 2.5,
+					modelData: modelData,
+					
 					visContainer: document.getElementById('vis_network'),
-					visData: visData,
 					visOptions: visOptions
 				};
 				
@@ -142,6 +152,21 @@
 					}
 					Model.Draw(modelLayers);
 				});
+
+				$('#scale_slider').slider({
+					step: .0001,
+					max: 5.0,
+					value: Model.GetScale(),
+					animate: 'slow',
+					orientation: 'vertical',
+					stop: function(event, ui) {
+						$('#scale_slider_label').html(ui.value);
+						
+						Model.SetScale(ui.value);
+						Model.Draw(modelLayers);
+					}
+				});
+				$('#scale_slider_label').html(Model.GetScale() + '');
 
 				$('button').button();
 				$('#btn-1').click(function() {
