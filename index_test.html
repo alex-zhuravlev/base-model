@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Базовая схема - Test</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<script type="text/javascript" src="jquery-ui-1.12.1/external/jquery/jquery.js"></script>
+		<script type="text/javascript" src="jquery-ui-1.12.1/jquery-ui.min.js"></script>
+		<link href="jquery-ui-1.12.1/jquery-ui.min.css" rel="stylesheet" type="text/css"/>
+		
+		<script type="text/javascript" src="vis-4.21.0/dist/vis.js"></script>
+		<link href="vis-4.21.0/dist/vis.css" rel="stylesheet" type="text/css"/>
+		
+		<style type="text/css">
+			.network_window {
+				float: left;
+			}
+
+			#mynetwork {
+				width: 1280px;
+				height: 900px;
+				border: 1px solid lightgray;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="network_window">
+			<div id="mynetwork"></div>
+			
+			<fieldset>
+				<legend>Choose layers:</legend>
+				<label for="cbox-1">Base</label>
+				<input type="checkbox" id="cbox-1" name="cbox" disabled="disabled" checked="checked">
+				<label for="cbox-2">Purple</label>
+				<input type="checkbox" id="cbox-2" name="cbox" checked="checked">
+				<!--<label for="cbox-3">Purple</label>
+				<input type="checkbox" name="cbox" id="cbox-3">-->
+			</fieldset>
+			
+			<button id="btn-1">Reset</button>
+		</div>
+		
+		<script type="text/javascript" src="dataset_test.js"></script>
+		
+		<script type="text/javascript">
+			function hexToRgbA(hex){
+				var c;
+				if(/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)){
+				c= hex.substring(1).split('');
+				if(c.length== 3){
+					c= [c[0], c[0], c[1], c[1], c[2], c[2]];
+				}
+				c= '0x'+c.join('');
+				return 'rgba('+[(c>>16)&255, (c>>8)&255, c&255].join(',')+',1)';
+				}
+				throw new Error('Bad Hex');
+			}
+
+			var changeChosenEdge = function(values, id, selected, hovering) {
+				values.color = 'rgba(0,0,0,1)';
+				values.width = 8;
+			};
+			var changeChosenNode = function(values, id, selected, hovering) {
+				values.color = values.color.replace(/[\d\.]+\)$/g, '1)');
+				values.borderColor = 'rgba(0,0,0,1)';
+				values.borderWidth = 2;
+				values.shadow = {
+					enabled: true,
+					color: 'rgba(0,0,0,0.7)',
+					size: 15,
+					x: 3,
+					y: 3
+				};
+				values.shapeProperties = {
+					borderDashes: [5,5]
+				};
+			};
+
+			var container = document.getElementById('mynetwork');
+
+			var data = {
+				nodes: new vis.DataSet(nodesDataset.concat(nodesDatasetAuxiliary)),
+				edges: new vis.DataSet(edgesDataset)
+			};
+
+			var options = {
+				autoResize: false,
+				height: '100%',
+				width: '100%',
+				locale: 'en',
+				clickToUse: false,
+				interaction: {
+					dragNodes: true,
+					dragView: true
+				},
+				physics: { 
+					enabled : false
+				},
+				nodes: {
+					shape: 'circle',
+					widthConstraint: { minimum: 99 },
+					font: { size: 40 },
+					chosen: { label: false, node: changeChosenNode }
+				},
+				edges: {
+					width: 1,
+					chosen: { label: false, edge: changeChosenEdge }
+				}
+			};
+
+			var network = new vis.Network(container, data, options);
+			network.on('click', OnClick);
+
+			function OnClick(data)
+			{
+				VisCustomSelection(this, data);
+			}
+			
+			function OnSelectNode(data)
+			{
+				//console.log('OnSelectNode');
+				//VisCustomSelection(this, data);
+			}
+			
+			function OnSelectEdge(data)
+			{
+				//console.log('OnSelectEdge');
+				//VisCustomSelection(this, data);
+			}
+			
+			function VisCustomSelection(network, data)
+			{
+				if(data.nodes.length === 0) return;
+				
+				var nodeId = data.nodes[0];
+				
+				var connectedNodeIds = network.getConnectedNodes(nodeId);
+				var connectedEdgeIds = network.getConnectedEdges(nodeId);
+
+				network.setSelection({
+					nodes: connectedNodeIds.concat([nodeId]),
+					edges: connectedEdgeIds
+				},
+				{
+					unselectAll: true,
+					highlightEdges: false
+				});
+				
+				/*var connectedNodes = nodes.get(connectedNodeIds);
+				for(var i = 0; i < connectedNodes.length; i++)
+				{
+				}*/
+			}
+			
+			function RedrawNetwork()
+			{
+				network.destroy();
+				network = new vis.Network(container, data, options);
+				network.on('click', OnClick);
+			}
+			
+			$("input[type='checkbox']").checkboxradio();
+			$('#cbox-2').change(function() {
+				if($(this).is(':checked')) {
+					data = {
+						nodes: new vis.DataSet(nodesDataset.concat(nodesDatasetAuxiliary)),
+						edges: new vis.DataSet(edgesDataset)
+					};
+					RedrawNetwork();
+				} else {
+					data = {
+						nodes: new vis.DataSet(nodesDataset),
+						edges: new vis.DataSet(edgesDataset)
+					};
+					RedrawNetwork();
+				}
+			});
+			
+			$('button').button();
+			$('#btn-1').click(function() {
+				RedrawNetwork();
+			});
+		</script>
+	</body>
+</html>

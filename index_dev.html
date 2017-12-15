@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Базовая схема</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<script type="text/javascript" src="jquery-ui-1.12.1/external/jquery/jquery.js"></script>
+		<script type="text/javascript" src="jquery-ui-1.12.1/jquery-ui.min.js"></script>
+		<link href="jquery-ui-1.12.1/jquery-ui.min.css" rel="stylesheet" type="text/css"/>
+		
+		<script type="text/javascript" src="vis-4.21.0/dist/vis.js"></script>
+		<link href="vis-4.21.0/dist/vis.css" rel="stylesheet" type="text/css"/>
+		
+		<script type="text/javascript" src="dataset_dev.js"></script>
+		<script type="text/javascript" src="model.js"></script>
+		
+		<style type="text/css">
+			.network_window {
+				float: left;
+			}
+
+			#vis_network {
+				width: 1280px;
+				height: 900px;
+				border: 1px solid lightgray;
+			}
+		</style>
+	</head>
+	<body onload="onBodyLoaded()">
+		<div class="network_window">
+			<div id="vis_network"></div>
+			
+			<fieldset id="layer_selector">
+				<legend>Choose layers:</legend>
+				<label for="cbox-1">Base</label>
+				<input type="checkbox" id="cbox-1" name="cbox" disabled="disabled" checked="checked" value="Basic">
+				<label for="cbox-2">Green</label>
+				<input type="checkbox" id="cbox-2" name="cbox" checked="checked" value="Green">
+				<label for="cbox-3">Purple</label>
+				<input type="checkbox" name="cbox" id="cbox-3" checked="checked" value="Purple">
+			</fieldset>
+			
+			<button id="btn-1">Reset</button>
+		</div>
+
+		<script type="text/javascript">
+			var modelLayers = ['Basic', 'Green', 'Purple'];
+			
+			function onBodyLoaded()
+			{
+				var changeChosenEdge = function(values, id, selected, hovering) {
+					values.color = 'rgba(0,0,0,1)';
+					values.width = 8;
+				};
+				var changeChosenNode = function(values, id, selected, hovering) {
+					values.color = values.color.replace(/[\d\.]+\)$/g, '1)');
+					values.borderColor = 'rgba(0,0,0,1)';
+					values.borderWidth = 2;
+					values.shadow = {
+						enabled: true,
+						color: 'rgba(0,0,0,0.7)',
+						size: 15,
+						x: 3,
+						y: 3
+					};
+					values.shapeProperties = {
+						borderDashes: [5,5]
+					};
+				};
+			
+				var visData = [
+					{
+						id: 'Basic',
+						nodesDataset: nodesBasic,
+						nodeTemplate: {id: 0, x : 0, y : 0, label: '-', color: 'rgba(0,0,255,0.20)', widthConstraint: { minimum: 200 }},
+						edgesDataset: edgesBasic,
+						edgeTemplate: {from: 0, to: 0, label: ''}
+					},
+					{
+						id: 'Green',
+						nodesDataset: nodesGreen,
+						nodeTemplate: {id: 0, x : 0, y : 0, label: '-', color: 'rgba(0,255,0,0.20)', widthConstraint: { minimum: 70 }},
+						edgesDataset: edgesGreen,
+						edgeTemplate: {from: 0, to: 0, label: ''}
+					},
+					{
+						id: 'Purple',
+						nodesDataset: nodesPurple,
+						nodeTemplate: {id: 0, x : 0, y : 0, label: '-', color: 'rgba(80,0,130,1.0)', widthConstraint: { minimum: 70 }, font: {color: 'white'}},
+						edgesDataset: edgesPurple,
+						edgeTemplate: {from: 0, to: 0, label: ''}
+					}
+				];
+				
+				var visOptions = {
+					autoResize: false,
+					height: '100%',
+					width: '100%',
+					locale: 'en',
+					clickToUse: false,
+					interaction: {
+						dragNodes: true,
+						dragView: true
+					},
+					physics: { 
+						enabled : false
+					},
+					nodes: {
+						shape: 'circle',
+						widthConstraint: { minimum: 99 },
+						font: { size: 40 },
+						chosen: { label: false, node: changeChosenNode }
+					},
+					edges: {
+						width: 1,
+						chosen: { label: false, edge: changeChosenEdge }
+					}
+				};
+
+				var modelConfig = {
+					modelScale: 2.5,
+					visContainer: document.getElementById('vis_network'),
+					visData: visData,
+					visOptions: visOptions
+				};
+				
+				Model.Init(modelConfig);
+				Model.Draw(modelLayers);
+				
+				$('#layer_selector input').checkboxradio();
+				$('#layer_selector input').change(function() {
+					var layer = $(this).attr('value');
+					if(modelLayers.indexOf(layer) !== -1) {
+						modelLayers.splice(modelLayers.indexOf(layer), 1);
+					}
+					if($(this).is(':checked')) {
+						modelLayers = modelLayers.concat([layer]);
+					}
+					Model.Draw(modelLayers);
+				});
+
+				$('button').button();
+				$('#btn-1').click(function() {
+					Model.Draw(modelLayers);
+				});
+			}
+		</script>
+	</body>
+</html>
