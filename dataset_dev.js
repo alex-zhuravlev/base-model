@@ -1,6 +1,6 @@
 var nodesBasic = [
 	// Central
-	{id: 1, x : 1000, y : 1000, color: '#7BE141'},
+	{id: 1, x : 1000, y : 1000, color: 'rgba(212,175,55,0.75)', widthConstraint: { minimum: 200 }},
 
 	// Main circle
 	{id: 2, x : 1000, y : 100, color: 'rgba(255,0,0,0.20)'},
@@ -51,15 +51,15 @@ var nodesGreen = [
 	{id: 41, x : 681.802, y : 1318.198},
 
 	// Yellow
-	{id: 42, x : 1000, y : 1120, color: 'rgba(255,255,0,0.20)'},
-	{id: 43, x : 1000, y : 880, color: 'rgba(255,255,0,0.20)'},
-	{id: 44, x : 1120, y : 1000, color: 'rgba(255,255,0,0.20)'},
-	{id: 45, x : 880, y : 1000, color: 'rgba(255,255,0,0.20)'},
-	{id: 46, x : 915.147, y : 915.147, color: 'rgba(255,255,0,0.20)'},
-	{id: 47, x : 915.147, y : 1084.853, color: 'rgba(255,255,0,0.20)'},
-	{id: 48, x : 1084.853, y : 915.147, color: 'rgba(255,255,0,0.20)'},
-	{id: 49, x : 1084.853, y : 1084.853, color: 'rgba(255,255,0,0.20)'},
-	{id: 50, x : 1000, y : 1000, color: 'rgba(255,255,0,0.20)'},
+	{id: 42, x : 1000, y : 1120, color: { background: 'rgba(255,255,0,0.20)', border: 'rgba(255,255,0,0.90)' }},
+	{id: 43, x : 1000, y : 880, color: { background: 'rgba(255,255,0,0.20)', border: 'rgba(255,255,0,0.90)' }},
+	{id: 44, x : 1120, y : 1000, color: { background: 'rgba(255,255,0,0.20)', border: 'rgba(255,255,0,0.90)' }},
+	{id: 45, x : 880, y : 1000, color: { background: 'rgba(255,255,0,0.20)', border: 'rgba(255,255,0,0.80)' }},
+	{id: 46, x : 915.147, y : 915.147, color: { background: 'rgba(255,255,0,0.20)', border: 'rgba(255,255,0,0.90)' }},
+	{id: 47, x : 915.147, y : 1084.853, color: { background: 'rgba(255,255,0,0.20)', border: 'rgba(255,255,0,0.90)' }},
+	{id: 48, x : 1084.853, y : 915.147, color: { background: 'rgba(255,255,0,0.20)', border: 'rgba(255,255,0,0.90)' }},
+	{id: 49, x : 1084.853, y : 1084.853, color: { background: 'rgba(255,255,0,0.20)', border: 'rgba(255,255,0,0.90)' }},
+	{id: 50, x : 1000, y : 1000, color: { background: 'rgba(255,255,0,0.20)', border: 'rgba(255,255,0,0.90)' }}
 ];
 
 var nodesPurple = [
@@ -225,6 +225,7 @@ var edgesBasic = [
 ];
 
 var edgesGreen = [
+	// Green
 	// 14
 	{from: 14, to: 6},
 	{from: 14, to: 10},
@@ -407,7 +408,55 @@ var edgesGreen = [
 	{from: 41, to: 7},
 	{from: 41, to: 9},
 	{from: 41, to: 11},
-	{from: 41, to: 12}
+	{from: 41, to: 12},
+	
+	// Yellow
+	// 42
+	{from: 42, to: 1},
+	{from: 42, to: 50},
+	{from: 42, to: 12},
+	{from: 42, to: 4},
+	
+	// 43
+	{from: 43, to: 1},
+	{from: 43, to: 50},
+	{from: 43, to: 10},
+	{from: 43, to: 2},
+	
+	// 44
+	{from: 44, to: 1},
+	{from: 44, to: 50},
+	{from: 44, to: 13},
+	{from: 44, to: 5},
+	
+	// 45
+	{from: 45, to: 1},
+	{from: 45, to: 50},
+	{from: 45, to: 11},
+	{from: 45, to: 3},
+	
+	// 46
+	{from: 46, to: 1},
+	{from: 46, to: 50},
+	{from: 46, to: 6},
+	
+	// 47
+	{from: 47, to: 1},
+	{from: 47, to: 50},
+	{from: 47, to: 7},
+	
+	// 48
+	{from: 48, to: 1},
+	{from: 48, to: 50},
+	{from: 48, to: 9},
+	
+	// 49
+	{from: 49, to: 1},
+	{from: 49, to: 50},
+	{from: 49, to: 8},
+	
+	// 50
+	// none
 ];
 
 var edgesPurple = [
