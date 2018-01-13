@@ -19,7 +19,6 @@ Model = (function() {
 				_config[key] = userConfig[key];
 			}
 		}
-		
 		PrepareData();
 	}
 	
@@ -97,27 +96,43 @@ Model = (function() {
 		
 		_visNetwork = new vis.Network(_config.visContainer, visData, _config.visOptions);
 		_visNetwork.on('click', VisOnClick);
-		// _visNetwork.on('selectNode', VisOnSelectNode);
-		// _visNetwork.on('selectEdge', VisOnSelectEdge);
 		_visNetwork.on('beforeDrawing', VisOnBeforeDrawing);
 		_visNetwork.on('afterDrawing', VisOnAfterDrawing);
 	}
 	
 	function VisOnClick(data)
 	{
-		VisCustomSelection(this, data);
-	}
-	
-	function VisOnSelectNode(data)
-	{
-		//console.log('OnSelectNode');
-		//VisCustomSelection(this, data);
-	}
+		var connectedNodeIds = [];
+		var connectedEdgeIds = [];
+		
+		if(data.nodes.length === 1) // Single node selected
+		{
+			var nodeId = data.nodes[0];
+
+			connectedNodeIds = this.getConnectedNodes(nodeId).concat([nodeId]);
+			connectedEdgeIds = this.getConnectedEdges(nodeId);
+		}
+		else if(data.edges.length === 1) // Single edge selected
+		{
+			var edgeId = data.edges[0];
 			
-	function VisOnSelectEdge(data)
-	{
-		//console.log('OnSelectEdge');
-		//VisCustomSelection(this, data);
+			connectedNodeIds = this.getConnectedNodes(edgeId);
+			connectedEdgeIds = [edgeId];
+		}
+		else
+		{
+			return;
+		}
+		
+		this.setSelection(
+		{
+			nodes: connectedNodeIds,
+			edges: connectedEdgeIds
+		},
+		{
+			unselectAll: true,
+			highlightEdges: false
+		});
 	}
 	
 	function VisOnBeforeDrawing(context)
@@ -152,31 +167,6 @@ Model = (function() {
 	function VisOnAfterDrawing(context)
 	{
 		
-	}
-	
-	function VisCustomSelection(network, data)
-	{
-		if(data.nodes.length === 0) return;
-
-		var nodeId = data.nodes[0];
-
-		var connectedNodeIds = network.getConnectedNodes(nodeId);
-		var connectedEdgeIds = network.getConnectedEdges(nodeId);
-
-		network.setSelection(
-		{
-			nodes: connectedNodeIds.concat([nodeId]),
-			edges: connectedEdgeIds
-		},
-		{
-			unselectAll: true,
-			highlightEdges: false
-		});
-
-		/*var connectedNodes = nodes.get(connectedNodeIds);
-		for(var i = 0; i < connectedNodes.length; i++)
-		{
-		}*/
 	}
 	
 	function GetBoundingBoxCenter(bb)

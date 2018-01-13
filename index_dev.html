@@ -17,40 +17,49 @@
 		
 		<style type="text/css">
 			.network-window {
-				float: left;
+				
 			}
 			
-			.control-panel {
-				float: left;
-			}
-
 			#vis_network {
 				width: 1280px;
 				height: 900px;
 				border: 1px solid lightgray;
 			}
+			
+			.control-panel {
+				
+			}
+
 		</style>
 	</head>
 	<body onload="onBodyLoaded()">
 		<div class="network-window">
 			<div id="vis_network"></div>
-		</div>
-		
-		<div class="control-panel">
-			<div id="scale_slider"></div>
-			<div id="scale_slider_label"></div>
-
-			<fieldset id="layer_selector">
-				<legend>Choose layers:</legend>
-				<label for="cbox-1">Base</label>
-				<input type="checkbox" id="cbox-1" name="cbox" checked="checked" value="Basic" disabled="disabled">
-				<label for="cbox-2">Green</label>
-				<input type="checkbox" id="cbox-2" name="cbox" checked="checked" value="Green">
-				<label for="cbox-3">Purple</label>
-				<input type="checkbox" name="cbox" id="cbox-3" checked="checked" value="Purple">
-			</fieldset>
-
-			<button id="btn-1">Reset</button>	
+			
+			<table border="0" cellspacing="10" class="control-panel">
+				<tr>
+					<td valign="middle">
+						<fieldset id="layer_selector">
+							<legend>Choose layers:</legend>
+							<label for="cbox-1">Base</label>
+							<input type="checkbox" id="cbox-1" name="cbox" checked="checked" value="Basic" disabled="disabled">
+							<label for="cbox-2">Green</label>
+							<input type="checkbox" id="cbox-2" name="cbox" checked="checked" value="Green">
+							<label for="cbox-3">Purple</label>
+							<input type="checkbox" name="cbox" id="cbox-3" checked="checked" value="Purple">
+						</fieldset>
+					</td>
+					<td valign="middle">
+						<div>
+							<div id="scale_slider" style="width: 180px; float: left; margin-right: 10px;"></div>
+							<span id="scale_slider_label"></span>
+						</div>
+					</td>
+					<td valign="middle">
+						<button id="btn-1">Reset Positions</button>	
+					</td>
+				</tr>
+			</table>
 		</div>
 
 		<script type="text/javascript">
@@ -61,6 +70,11 @@
 				var changeChosenEdge = function(values, id, selected, hovering) {
 					values.color = 'rgba(0,0,0,1)';
 					values.width = 8;
+					values.shadow = true;
+					values.shadowColor = 'rgba(0,0,0,0.2)';
+					values.shadowSize = 3;
+					values.shadowX = 0;
+					values.shadowY = 0;
 				};
 				var changeChosenNode = function(values, id, selected, hovering) {
 					values.color = values.color.replace(/[\d\.]+\)$/g, '1)');
@@ -87,21 +101,21 @@
 						nodesDataset: nodesBasic,
 						nodeTemplate: {id: 0, x : 0, y : 0, label: '-', color: 'rgba(0,0,255,0.20)', widthConstraint: { minimum: 200 }, font: { size: 72, bold: true}},
 						edgesDataset: edgesBasic,
-						edgeTemplate: {from: 0, to: 0, label: ''}
+						edgeTemplate: {from: 0, to: 0, label: '', width: 1, value: 1, scaling: { min: 1, max: 5 }}
 					},
 					{
 						id: 'Green',
 						nodesDataset: nodesGreen,
 						nodeTemplate: {id: 0, x : 0, y : 0, label: '-', color: { background: 'rgba(0,255,0,0.20)', border: 'rgba(0,255,0,0.80)' }, widthConstraint: { minimum: 70 }, font: { bold: true}},
 						edgesDataset: edgesGreen,
-						edgeTemplate: {from: 0, to: 0, label: ''}
+						edgeTemplate: {from: 0, to: 0, label: '', color: { color: 'rgba(0,0,0,0)' }}
 					},
 					{
 						id: 'Purple',
 						nodesDataset: nodesPurple,
 						nodeTemplate: {id: 0, x : 0, y : 0, label: '-', color: { background: 'rgba(80,0,130,0.2)', border: 'rgba(80,0,130,0.8)' }, widthConstraint: { minimum: 70 }, font: { bold: true}, chosen: { label: changeChosenDarkNodeLabel }},
 						edgesDataset: edgesPurple,
-						edgeTemplate: {from: 0, to: 0, label: ''}
+						edgeTemplate: {from: 0, to: 0, label: '', color: { color: 'rgba(0,0,0,0)' }}
 					}
 				];
 				
@@ -125,7 +139,6 @@
 						chosen: { label: false, node: changeChosenNode }
 					},
 					edges: {
-						width: 1,
 						chosen: { label: false, edge: changeChosenEdge }
 					}
 				};
@@ -158,7 +171,7 @@
 					max: 5.0,
 					value: Model.GetScale(),
 					animate: 'slow',
-					orientation: 'vertical',
+					orientation: 'horizontal',
 					stop: function(event, ui) {
 						$('#scale_slider_label').html(ui.value);
 						
