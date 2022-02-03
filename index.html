@@ -29,15 +29,15 @@
 		<script type="text/javascript" src="dataset.js?1"></script>
 		
 		<script type="text/javascript">
-			function hexToRgbA(hex){
+			function hexToRgbA(hex) {
 				var c;
-				if(/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)){
-				c= hex.substring(1).split('');
-				if(c.length== 3){
-					c= [c[0], c[0], c[1], c[1], c[2], c[2]];
-				}
-				c= '0x'+c.join('');
-				return 'rgba('+[(c>>16)&255, (c>>8)&255, c&255].join(',')+',1)';
+				if (/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)) {
+					c = hex.substring(1).split('');
+					if (c.length == 3) {
+						c = [c[0], c[0], c[1], c[1], c[2], c[2]];
+					}
+					c = '0x' + c.join('');
+					return 'rgba(' + [(c >> 16) & 255, (c >> 8) & 255, c & 255].join(',') + ',1)';
 				}
 				throw new Error('Bad Hex');
 			}
@@ -58,7 +58,7 @@
 					y: 3
 				};
 				values.shapeProperties = {
-					borderDashes: [5,5]
+					borderDashes: [5, 5]
 				};
 			};
 			
@@ -84,26 +84,56 @@
 					dragNodes: true,
 					dragView: true
 				},
-				physics: { 
-					enabled : false
+				physics: {
+					enabled: false
 				},
 				nodes: {
 					shape: 'circle',
-					widthConstraint: { minimum: 99 },
-					font: { size: 40 },
-					chosen: { label: false, node: changeChosenNode }
+					widthConstraint: {minimum: 99},
+					font: {size: 40},
+					chosen: {label: false, node: changeChosenNode}
 				},
 				edges: {
 					width: 1,
-					chosen: { label: false, edge: changeChosenEdge }
+					chosen: {label: false, edge: changeChosenEdge}
 				}
 			};
 
 			// initialize your network!
 			var network = new vis.Network(container, data, options);
 			network.on('click', OnClick);
+            network.on('beforeDrawing', drawBackgroundGeometry);
 			// network.on('selectNode', OnSelectNode);
 			// network.on('selectEdge', OnSelectEdge);
+
+            function drawBackgroundGeometry(ctx) {
+                drawRect(ctx, 'rgba(0,0,0,0.2)', [100, 100, 1800, 1800]);
+                drawRect(ctx, 'rgba(255,0,0,0.20)', [363.604, 363.604, 1272.792, 1272.792]); // left-top: 6
+				drawRect(ctx, 'rgba(0,255,0,0.20)', [550, 550, 900, 900]); // left-top: 55
+                drawRect(ctx, 'rgba(0,255,0,0.20)', [575.736, 575.736, 848.528, 848.528]); // left-top: 14-24
+                drawRect(ctx, 'rgba(0,255,0,0.20)', [618.162, 618.162, 763.676, 763.676]); // left-top: 15-25
+                drawRect(ctx, 'rgba(0,255,0,0.20)', [681.802, 681.802, 636.396, 636.396]); // left-top: 34
+                drawRect(ctx, 'rgba(0,255,0,0.20)', [787.868, 787.868, 424.264, 424.264]); // left-top: 35
+
+                drawCircle(ctx, 'rgba(255,0,0,0.20)', [1000, 1000, 900]);
+                drawCircle(ctx, 'rgba(255,255,0,0.20)', [1000, 1000, 120]);
+            }
+
+            function drawRect(ctx, color, rect) {
+                ctx.lineWidth = '10';
+                ctx.strokeStyle = color;
+                ctx.beginPath();
+                ctx.rect(rect[0], rect[1], rect[2], rect[3]);
+                ctx.stroke();
+            }
+
+            function drawCircle(ctx, color, circle) {
+                ctx.lineWidth = '10';
+                ctx.strokeStyle = color;
+                ctx.beginPath();
+                ctx.arc(circle[0], circle[1], circle[2], 0, 2 * Math.PI);
+                ctx.stroke();
+            }
 
 			function OnClick(data)
 			{
@@ -122,38 +152,37 @@
 				//VisCustomSelection(this, data);
 			}
 			
-			function VisCustomSelection(network, data)
-			{
-				if(data.nodes.length === 0) return;
-				
+			function VisCustomSelection(network, data) {
+				if (data.nodes.length === 0) return;
+
 				var nodeId = data.nodes[0];
-				
+
 				var connectedNodeIds = network.getConnectedNodes(nodeId);
 				var connectedEdgeIds = network.getConnectedEdges(nodeId);
 
 				network.setSelection({
-					nodes: connectedNodeIds.concat([nodeId]),
-					edges: connectedEdgeIds
-				},
-				{
-					unselectAll: true,
-					highlightEdges: false
-				});
-				
+							nodes: connectedNodeIds.concat([nodeId]),
+							edges: connectedEdgeIds
+						},
+						{
+							unselectAll: true,
+							highlightEdges: false
+						});
+
 				/*var connectedNodes = nodes.get(connectedNodeIds);
 				for(var i = 0; i < connectedNodes.length; i++)
 				{
 				}*/
 			}
 			
-			function RedrawNetwork()
-			{
+			function RedrawNetwork() {
 				network.destroy();
-				
+
 				network = new vis.Network(container, data, options);
-				//network.on('selectNode', OnSelectNode);
-				//network.on('selectEdge', OnSelectEdge);
 				network.on('click', OnClick);
+                network.on('beforeDrawing', drawBackgroundGeometry);
+                //network.on('selectNode', OnSelectNode);
+                //network.on('selectEdge', OnSelectEdge);
 			}
 		</script>
 	</body>

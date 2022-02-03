@@ -78,6 +78,26 @@ var nodesDataset = [
 	{id: 49, x : 1084.853, y : 1084.853, label: '49', color: 'rgba(255,255,0,0.20)', widthConstraint: { minimum: 10 }},
 
 	{id: 50, x : 1000, y : 1000, label: '50', color: 'rgba(255,255,0,0.20)', widthConstraint: { minimum: 10 }},
+
+	// External square
+	{id: 51, x : 100, y : 100, label: '51', color: 'rgba(63,224,208,0.20)'},
+	{id: 52, x : 100, y : 1900, label: '52', color: 'rgba(63,224,208,0.20)'},
+	{id: 53, x : 1900, y : 1900, label: '53', color: 'rgba(63,224,208,0.20)'},
+	{id: 54, x : 1900, y : 100, label: '54', color: 'rgba(63,224,208,0.20)'},
+
+	// External green square
+	{id: 55, x : 550, y : 550, label: '55', color: 'rgba(0,255,0,0.20)', widthConstraint: { minimum: 10 }},
+	{id: 56, x : 550, y : 1450, label: '56', color: 'rgba(0,255,0,0.20)', widthConstraint: { minimum: 10 }},
+	{id: 57, x : 1450, y : 1450, label: '57', color: 'rgba(0,255,0,0.20)', widthConstraint: { minimum: 10 }},
+	{id: 58, x : 1450, y : 550, label: '58', color: 'rgba(0,255,0,0.20)', widthConstraint: { minimum: 10 }},
+	{id: 59, x : 550, y : 736.4, label: '59', color: 'rgba(0,255,0,0.20)', widthConstraint: { minimum: 10 }},
+	{id: 60, x : 550, y : 1263.6, label: '60', color: 'rgba(0,255,0,0.20)', widthConstraint: { minimum: 10 }},
+	{id: 61, x : 736.4, y : 1450, label: '61', color: 'rgba(0,255,0,0.20)', widthConstraint: { minimum: 10 }},
+	{id: 62, x : 1263.6, y : 1450, label: '62', color: 'rgba(0,255,0,0.20)', widthConstraint: { minimum: 10 }},
+	{id: 63, x : 1450, y : 1263.6, label: '63', color: 'rgba(0,255,0,0.20)', widthConstraint: { minimum: 10 }},
+	{id: 64, x : 1450, y : 736.4, label: '64', color: 'rgba(0,255,0,0.20)', widthConstraint: { minimum: 10 }},
+	{id: 65, x : 1263.6, y : 550, label: '65', color: 'rgba(0,255,0,0.20)', widthConstraint: { minimum: 10 }},
+	{id: 66, x : 736.4, y : 550, label: '66', color: 'rgba(0,255,0,0.20)', widthConstraint: { minimum: 10 }},
 ];
 
 var edgesDataset = [
@@ -369,4 +389,134 @@ var edgesDataset = [
 	{from: 41, to: 9, label: ''},
 	{from: 41, to: 11, label: ''},
 	{from: 41, to: 12, label: ''},
+
+	// 51
+	{from: 51, to: 1, label: ''},
+	{from: 51, to: 2, label: ''},
+	{from: 51, to: 3, label: ''},
+	{from: 51, to: 6, label: ''},
+	{from: 51, to: 8, label: ''},
+	{from: 51, to: 34, label: ''},
+	{from: 51, to: 35, label: ''},
+	{from: 51, to: 36, label: ''},
+	{from: 51, to: 37, label: ''},
+	{from: 51, to: 52, label: ''},
+	{from: 51, to: 53, label: ''},
+	{from: 51, to: 54, label: ''},
+
+	// 52
+	{from: 52, to: 1, label: ''},
+	{from: 52, to: 3, label: ''},
+	{from: 52, to: 4, label: ''},
+	{from: 52, to: 7, label: ''},
+	{from: 52, to: 9, label: ''},
+	{from: 52, to: 38, label: ''},
+	{from: 52, to: 39, label: ''},
+	{from: 52, to: 40, label: ''},
+	{from: 52, to: 41, label: ''},
+	{from: 52, to: 53, label: ''},
+	{from: 52, to: 54, label: ''},
+
+	// 53
+	{from: 53, to: 1, label: ''},
+	{from: 53, to: 4, label: ''},
+	{from: 53, to: 5, label: ''},
+	{from: 53, to: 6, label: ''},
+	{from: 53, to: 8, label: ''},
+	{from: 53, to: 34, label: ''},
+	{from: 53, to: 35, label: ''},
+	{from: 53, to: 36, label: ''},
+	{from: 53, to: 37, label: ''},
+	{from: 53, to: 54, label: ''},
+
+	// 54
+	{from: 54, to: 1, label: ''},
+	{from: 54, to: 2, label: ''},
+	{from: 54, to: 5, label: ''},
+	{from: 54, to: 7, label: ''},
+	{from: 54, to: 9, label: ''},
+	{from: 54, to: 38, label: ''},
+	{from: 54, to: 39, label: ''},
+	{from: 54, to: 40, label: ''},
+	{from: 54, to: 41, label: ''},
+
+	// 55
+	{from: 55, to: 2, label: ''},
+	{from: 55, to: 3, label: ''},
+	{from: 55, to: 6, label: ''},
+	{from: 55, to: 8, label: ''},
+	{from: 55, to: 51, label: ''},
+	{from: 55, to: 53, label: ''},
+
+	// 56
+	{from: 56, to: 3, label: ''},
+	{from: 56, to: 4, label: ''},
+	{from: 56, to: 7, label: ''},
+	{from: 56, to: 9, label: ''},
+	{from: 56, to: 52, label: ''},
+	{from: 56, to: 54, label: ''},
+
+	// 57
+	{from: 57, to: 4, label: ''},
+	{from: 57, to: 5, label: ''},
+	{from: 57, to: 6, label: ''},
+	{from: 57, to: 8, label: ''},
+	{from: 57, to: 51, label: ''},
+	{from: 57, to: 53, label: ''},
+
+	// 58
+	{from: 58, to: 2, label: ''},
+	{from: 58, to: 5, label: ''},
+	{from: 58, to: 7, label: ''},
+	{from: 58, to: 9, label: ''},
+	{from: 58, to: 52, label: ''},
+	{from: 58, to: 54, label: ''},
+
+	// 59
+	{from: 59, to: 2, label: ''},
+	{from: 59, to: 6, label: ''},
+	{from: 59, to: 11, label: ''},
+	{from: 59, to: 12, label: ''},
+
+	// 60
+	{from: 60, to: 4, label: ''},
+	{from: 60, to: 7, label: ''},
+	{from: 60, to: 10, label: ''},
+	{from: 60, to: 11, label: ''},
+
+	// 61
+	{from: 61, to: 3, label: ''},
+	{from: 61, to: 7, label: ''},
+	{from: 61, to: 12, label: ''},
+	{from: 61, to: 13, label: ''},
+
+	// 62
+	{from: 62, to: 5, label: ''},
+	{from: 62, to: 8, label: ''},
+	{from: 62, to: 11, label: ''},
+	{from: 62, to: 12, label: ''},
+
+	// 63
+	{from: 63, to: 4, label: ''},
+	{from: 63, to: 8, label: ''},
+	{from: 63, to: 10, label: ''},
+	{from: 63, to: 13, label: ''},
+
+	// 64
+	{from: 64, to: 2, label: ''},
+	{from: 64, to: 9, label: ''},
+	{from: 64, to: 12, label: ''},
+	{from: 64, to: 13, label: ''},
+
+	// 65
+	{from: 65, to: 5, label: ''},
+	{from: 65, to: 9, label: ''},
+	{from: 65, to: 10, label: ''},
+	{from: 65, to: 11, label: ''},
+
+	// 66
+	{from: 66, to: 3, label: ''},
+	{from: 66, to: 6, label: ''},
+	{from: 66, to: 10, label: ''},
+	{from: 66, to: 13, label: ''},
 ];
