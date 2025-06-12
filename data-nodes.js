@@ -1,4 +1,4 @@
-var nodesDataset = [
+const nodesDataset = [
 	// Central
 	{id: 1, x : 1000, y : 1000, label: '1', color: '#7BE141'},
 
@@ -84,6 +84,8 @@ var nodesDataset = [
 	{id: 52, x : 100, y : 1900, label: '52', color: 'rgba(63,224,208,0.20)'},
 	{id: 53, x : 1900, y : 1900, label: '53', color: 'rgba(63,224,208,0.20)'},
 	{id: 54, x : 1900, y : 100, label: '54', color: 'rgba(63,224,208,0.20)'},
+
+	{id: 99, x : 0, y : 0, label: '99', color: 'rgba(63,224,208,0.20)'},
 
 	// External green square
 	{id: 55, x : 550, y : 550, label: '55', color: 'rgba(0,255,0,0.20)', widthConstraint: { minimum: 10 }},
@@ -520,3 +522,4 @@ var edgesDataset = [
 	{from: 66, to: 10, label: ''},
 	{from: 66, to: 13, label: ''},
 ];
+Object.freeze(nodesDataset);
