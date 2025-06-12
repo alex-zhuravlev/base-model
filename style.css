@@ -1,0 +1,9 @@
+.network-window {
+    float: left;
+}
+
+#network_container {
+    width: 1024px;
+    height: 768px;
+    border: 1px solid lightgrey;
+}
